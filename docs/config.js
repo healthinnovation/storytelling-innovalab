@@ -1,7 +1,7 @@
 var config = {
     style: 'mapbox://styles/ambarja/cme4xfcrm01mq01qp4at459bl',
-    accessToken: 'pk.eyJ1IjoiYW1iYXJqYSIsImEiOiJjbWU0dmwycHkwbnRsMm1wcDQ3bjZzbnN0In0.eXWpJGJlMfD7RmUFJHXO2Q',
-    showMarkers: true,
+    accessToken: 'pk.eyJ1IjoiYW1iYXJqYSIsImEiOiJjbWU1N3ZpMGYwcWRvMmpvaDg0bTdkZjB3In0.1jaUMkZYUz2ApPPXe-p1XQ',
+    showMarkers: false,
     markerColor: '#3FB1CE',
     theme: 'dark',
     use3dTerrain: true, //set true for enabling 3D maps.
@@ -20,27 +20,49 @@ var config = {
             description: 'The first chapter contains a title, image, and camera view for San Francisco, California. Update the chapter data to make it your own.',
             location: {
                 center: [-73.4388389, -4.0619196],
-                zoom: 8.5,
-                pitch: 60,
-                bearing: 43.2,
+                zoom: 10.0,
+                pitch: 0,
+                bearing: 0,
             },
             mapAnimation: 'flyTo',
-            rotateAnimation: true,
+            rotateAnimation: false,
             callback: '',
             onChapterEnter: [
-                // {
-                //     layer: 'layer-name',
-                //     opacity: 1,
-                //     duration: 5000
-                // }
+                { layer: 'hexagonos', opacity: 1 },
+
             ],
             onChapterExit: [
-                // {
-                //     layer: 'layer-name',
-                //     opacity: 0
-                // }
+                { layer: 'hexagonos', opacity: 1 },
+            ]
+
+        },
+
+        {
+            id: 'primer-identifier',
+            alignment: 'right',
+            hidden: false,
+            title: 'Harmonize Project: Llanchama',
+            image: './assets/san-fran.jpeg',
+            description: 'The first chapter contains a title, image, and camera view for San Francisco, California. Update the chapter data to make it your own.',
+            location: {
+                center: [-73.4074049, -3.8588215],
+                zoom: 15.5,
+                pitch: 0,
+                bearing: 0,
+            },
+            mapAnimation: 'flyTo',
+            rotateAnimation: false,
+            callback: '',
+            onChapterEnter: [
+                { layer: 'hexagonos', opacity: 1 },
+                { layer: 'llanchama-rgb', opacity: 1 },
+            ],
+            onChapterExit: [
+                { layer: 'hexagonos', opacity: 1 },
+                { layer: 'llanchama-rgb', opacity: 0 },
             ]
         },
+
         {
             id: 'second-identifier',
             alignment: 'right',
@@ -58,7 +80,7 @@ var config = {
                 // slowly and zoom out almost completely before starting
                 // to pan.
                 //speed: 2, // make the flying slow
-                //curve: 1, // change the speed at which it zooms out
+                curve: 2, // change the speed at which it zooms out
             },
             mapAnimation: 'flyTo',
             rotateAnimation: true,

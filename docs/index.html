@@ -3,10 +3,10 @@
 
 <head>
     <meta charset='utf-8' />
-    <title>Mapbox Storytelling</title>
+    <title>Innovalab | Projects</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <link rel="icon" type="image/x-icon"
-        href="https://raw.githubusercontent.com/mapbox/assembly/publisher-staging/src/svgs/mapbox.svg">
+        href="https://avatars.githubusercontent.com/u/46831228?s=400&u=6650b5f909ac9ab6e131aaf130fe4a8cfadaf663&v=4">
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.css' rel='stylesheet' />
     <script src="https://cdn.jsdelivr.net/npm/mapbox-gl-globe-minimap@1.2.0/dist/bundle.js"></script>
@@ -237,24 +237,33 @@
             'right': 'righty',
             'full': 'fully'
         }
-
-        function getLayerPaintType(layer) {
-            var layerType = map.getLayer(layer).type;
-            return layerTypes[layerType];
+        function getLayerPaintType(layerId) {
+            const lyr = map.getLayer(layerId);
+            if (!lyr) {
+                console.warn("⚠️ Layer no encontrado:", layerId);
+                return null;
+            }
+            const dict = {
+                'fill': ['fill-opacity'],
+                'line': ['line-opacity'],
+                'circle': ['circle-opacity', 'circle-stroke-opacity'],
+                'symbol': ['icon-opacity', 'text-opacity'],
+                'raster': ['raster-opacity'],
+                'fill-extrusion': ['fill-extrusion-opacity'],
+                'heatmap': ['heatmap-opacity']
+            };
+            return dict[lyr.type] || null;
         }
 
-        function setLayerOpacity(layer) {
-            var paintProps = getLayerPaintType(layer.layer);
-            paintProps.forEach(function (prop) {
-                var options = {};
-                if (layer.duration) {
-                    var transitionProp = prop + "-transition";
-                    options = { "duration": layer.duration };
-                    map.setPaintProperty(layer.layer, transitionProp, options);
-                }
-                map.setPaintProperty(layer.layer, prop, layer.opacity, options);
+        function setLayerOpacity(entry) {
+            const props = getLayerPaintType(entry.layer);
+            if (!props) return; // si no existe, no hace nada
+            props.forEach(prop => {
+                const options = entry.duration ? { duration: entry.duration } : {};
+                map.setPaintProperty(entry.layer, prop, entry.opacity, options);
             });
         }
+
 
         var story = document.getElementById('story');
         var features = document.createElement('div');
