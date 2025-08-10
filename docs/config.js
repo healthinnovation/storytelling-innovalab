@@ -1,13 +1,8 @@
 var config = {
-    style: 'mapbox://styles/ambarja/cme4nlxel01qw01s2btmd3d87',
-    accessToken: 'pk.eyJ1IjoiYW1iYXJqYSIsImEiOiJjbGdianBsdDUwMTZqM2VyeWF4NjV2eDF5In0.yT1eZ1Jhg6qIjKaibMTm3g',
+    style: 'mapbox://styles/ambarja/cme4xfcrm01mq01qp4at459bl',
+    accessToken: 'pk.eyJ1IjoiYW1iYXJqYSIsImEiOiJjbWU0dmwycHkwbnRsMm1wcDQ3bjZzbnN0In0.eXWpJGJlMfD7RmUFJHXO2Q',
     showMarkers: true,
     markerColor: '#3FB1CE',
-    inset: true,
-    insetOptions: {
-        markerColor: 'orange'
-    },
-    insetPosition: 'bottom-right',
     theme: 'dark',
     use3dTerrain: true, //set true for enabling 3D maps.
     auto: false,
@@ -27,10 +22,10 @@ var config = {
                 center: [-73.4388389, -4.0619196],
                 zoom: 8.5,
                 pitch: 60,
-                bearing: 0
+                bearing: 43.2,
             },
             mapAnimation: 'flyTo',
-            rotateAnimation: false,
+            rotateAnimation: true,
             callback: '',
             onChapterEnter: [
                 // {
@@ -82,7 +77,7 @@ var config = {
                 center: [-71.969774, -13.5321518],
                 zoom: 12.52,
                 pitch: 8.01,
-                bearing: 0.00
+                bearing: -43.2,
             },
             mapAnimation: 'flyTo',
             rotateAnimation: true,
@@ -101,24 +96,11 @@ var config = {
                 center: [-71.547981, -16.4043189],
                 zoom: 12.52,
                 pitch: 8.01,
-                bearing: 0.00
+                bearing: -43.2,
             },
             mapAnimation: 'flyTo',
             rotateAnimation: true,
-            callback: function () {
-                // Esperar un poco y volver al primer capítulo
-                setTimeout(() => {
-                    map.flyTo({
-                        center: config.chapters[0].location.center,
-                        zoom: config.chapters[0].location.zoom,
-                        pitch: config.chapters[0].location.pitch,
-                        bearing: config.chapters[0].location.bearing,
-                        essential: true
-                    });
-                    // Si también quieres mostrar el texto del primer capítulo:
-                    document.getElementById(config.chapters[0].id).scrollIntoView({ behavior: "smooth" });
-                }, 4000); // 4 segundos de espera antes de volver
-            },
+            callback: '',
             onChapterEnter: [],
             onChapterExit: []
         }

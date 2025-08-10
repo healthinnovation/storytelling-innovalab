@@ -11,11 +11,17 @@
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.css' rel='stylesheet' />
     <script src="https://cdn.jsdelivr.net/npm/mapbox-gl-globe-minimap@1.2.0/dist/bundle.js"></script>
     <script src="https://unpkg.com/scrollama"></script>
+    <link rel="stylesheet" href="css/css.css">
     <style>
+        @font-face {
+            font-family: 'Veneer clean', monospace;
+            src: url(https://www.amazonfrontlines.org/m3di4/VeneerCleanSoft.otf);
+        }
+
         body {
             margin: 0;
             padding: 0;
-            font-family: sans-serif;
+            font-family: 'Montserrat', Helvetica, sans-serif;
         }
 
         a,
@@ -36,6 +42,7 @@
             width: 100%;
             position: relative;
             z-index: 5;
+            display: none;
         }
 
         #header h1,
@@ -109,12 +116,34 @@
 
         .step div {
             padding: 25px 50px;
-            line-height: 25px;
             font-size: 13px;
+            border-radius: 25px;
+        }
+
+        .step div p {
+            font-size: 1.1rem;
+            line-height: 25px;
+            font-family: 'Montserrat', Helvetica, sans-serif;
+        }
+
+        .step div h3 {
+            font-family: 'Veneer clean', Helvetica, sans-serif;
+            text-transform: uppercase;
+            font-size: 2rem;
+            font-weight: 1000;
         }
 
         .step img {
             width: 100%;
+        }
+
+        #mapa4b {
+            opacity: 0;
+        }
+
+        #rotate-mobile {
+            display: none;
+            padding: 0;
         }
 
         @media (max-width: 750px) {
@@ -126,7 +155,55 @@
                 width: 90vw;
                 margin: 0 auto;
             }
+
+            #rotate-mobile {
+                display: inline-block;
+                margin-top: 25px;
+            }
         }
+
+        .legend {
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            color: #444;
+            background-color: #fafafa;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.10);
+            font-family: 'Montserrat', Helvetica, sans-serif;
+            padding: 10px;
+            display: none;
+            z-index: 1;
+            max-width: 350px;
+        }
+
+        .legend img {
+            width: 100%;
+        }
+
+        .legend h3 {
+            margin: 0 0 10px;
+            font-family: 'Montserrat', Helvetica, sans-serif;
+        }
+
+        .legend div {
+            vertical-align: center;
+        }
+
+        .legend div #block {
+            display: inline-block;
+            height: 20px;
+            width: 30px;
+            margin-right: 5px;
+        }
+
+        .legend div #text {
+            vertical-align: top;
+        }
+
+        #mapa2legend {
+            max-width: 275px;
+        }
+
 
         /* Fix issue on mobile browser where scroll breaks  */
         .mapboxgl-canvas-container.mapboxgl-touch-zoom-rotate.mapboxgl-touch-drag-pan,
@@ -301,7 +378,7 @@
                     'maxzoom': 14
                 });
                 // add the DEM source as a terrain layer with exaggerated height
-                map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 3.5 });
+                map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
 
                 // add a sky layer that will show when the map is highly pitched
                 map.addLayer({
